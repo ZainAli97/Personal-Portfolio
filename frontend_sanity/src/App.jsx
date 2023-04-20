@@ -1,21 +1,21 @@
 import React from 'react';
-import { Routes, Route } from "react-router-dom";
-import { Box } from '@mui/material';
-import { ExerciseDetail, Home } from "./Pages";
-import { Navbar, Footer } from "./Components";
-
-const App = () => (
-    <>
-        <Box
-            width="400px">
-            <Navbar />
-            <Routes>
-                <Route path='/' element={<Home />} />
-                <Route path='/exercise/:id' element={<ExerciseDetail />} />
-            </Routes>
-            <Footer />
-        </Box>
-    </>
-);
+import { About, Skills, Footer, Header, Work, Testimonials } from './container';
+import { Navbar } from "./components";
+import "./App.scss";
+const App = () => {
+    return (
+        <>
+            <div className='app'>
+                <Navbar />
+                <Header />
+                <About />
+                <Work />
+                <Skills />
+                <Testimonials />
+                <Footer />
+            </div>
+        </>
+    );
+};
 
 export default App;
