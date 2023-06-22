@@ -4,8 +4,9 @@ import "./About.scss";
 import { motion } from 'framer-motion';
 import { urlFor, client } from '@utils/client';
 import { AppWrap, MotionWrap } from '@Wrapper';
-const About = () => {
-    const [abouts, setAbout] = useState([]);
+import { AboutProps } from '@types';
+const About: React.FC = () => {
+    const [abouts, setAbout] = useState<AboutProps[]>([]);
     useEffect(() => {
         const query = `*[_type == "abouts"]`;
         client.fetch(query)
@@ -25,6 +26,7 @@ const About = () => {
                         transition={{ duration: 0.5, type: "tween" }}
                         className="app__profile-item"
                         key={about.title + index}>
+                        {/* @ts-ignore */}
                         <img src={urlFor(about.imgUrl)} alt={about.title} />
                         <h2 className='bold-text' style={{ marginTop: 20 }}>{about.title}</h2>
                         <p className='p-text' style={{ marginTop: 10 }}>{about.description}</p>

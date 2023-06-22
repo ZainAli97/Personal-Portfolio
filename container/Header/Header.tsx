@@ -54,8 +54,7 @@ const Header = () => {
                 </motion.div>
 
                 <motion.div
-                    // @ts-ignore
-                    variant={scaleVarients}
+                    variants={scaleVarients}
                     whileInView={scaleVarients.whileInView}
                     className="app__header-circles">
                     {[images.react, images.redux, images.sass].map((circle, index) => (

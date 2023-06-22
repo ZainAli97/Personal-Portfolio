@@ -28,11 +28,11 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "container/About/About.jsx",
-    "container/Work/Work.jsx",
-    "container/Testimonials/Testimonials.jsx",
-    "container/Skills/Skills.jsx",
-    "Wrapper/MotionWrap.jsx"
+    "container/About/About.tsx",
+    "container/Work/Work.tsx",
+    "container/Testimonials/Testimonials.tsx",
+    "container/Skills/Skills.tsx",
+    "Wrapper/MotionWrap.tsx"
   ],
   "exclude": ["node_modules"]
 }

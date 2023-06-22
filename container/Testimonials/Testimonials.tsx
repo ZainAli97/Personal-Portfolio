@@ -3,16 +3,19 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { HiChevronLeft, HiChevronRight } from 'react-icons/hi';
 
-import { AppWrap, MotionWrap } from '../../Wrapper';
-import { urlFor, client } from '../../utils/client';
+import { AppWrap, MotionWrap } from '@Wrapper';
+import { urlFor, client } from '@utils/client';
 import "./Testimonials.scss";
-const Testimonials = () => {
-    const [brands, setBrands] = useState([]);
-    const [testimonials, setTestimonials] = useState([]);
+import { TestimonialsBrandsProps, TestimonialsProps } from '@types';
+import Image from 'next/image';
+const Testimonials: React.FC = () => {
+    const [brands, setBrands] = useState<TestimonialsBrandsProps[]>([]);
+    const [testimonials, setTestimonials] = useState<TestimonialsProps[]>([]);
     const [currentIndex, setCurrentIndex] = useState(0);
-    const handleClicked = (index) => {
+    const handleClicked: TestimonialsProps['handleClicked'] = (index) => {
         setCurrentIndex(index);
     };
+
     useEffect(() => {
         const query = `*[_type == "testimonials"]`;
         const brandsQuery = `*[_type == "brands"]`;
@@ -31,6 +34,7 @@ const Testimonials = () => {
             {testimonials.length && (
                 <>
                     <div className='app__testimonial-item app__flex'>
+                        {/* @ts-ignore */}
                         <img src={urlFor(text.imgurl)} alt="testimonials" />
                         <div className="app__testimonial-content">
                             <p className="p-text">{text.feedback}</p>
@@ -57,6 +61,7 @@ const Testimonials = () => {
                         whileInView={{ opacity: [0, 1] }}
                         transition={{ duration: 0.5, type: "tween" }}
                         key={brand._id}>
+                        {/* @ts-ignore */}
                         <img src={urlFor(brand.imgUrl)} alt={brand.name} />
                     </motion.div>
                 ))}

@@ -5,9 +5,10 @@ import { Tooltip as ReactTooltip } from 'react-tooltip';
 import { AppWrap, MotionWrap } from '@Wrapper';
 import { urlFor, client } from '@utils/client';
 import "./Skills.scss";
-const Skills = () => {
-    const [skills, setSkills] = useState([]);
-    const [experience, setExperience] = useState([]);
+import { SkillsProps } from '@types';
+const Skills: React.FC = () => {
+    const [skills, setSkills] = useState<SkillsProps[]>([]);
+    const [experience, setExperience] = useState<SkillsProps[]>([]);
     useEffect(() => {
         const query = `*[_type == "experiences"]`;
         const skillsQuery = `*[_type == "skills"]`;
@@ -36,6 +37,7 @@ const Skills = () => {
                             key={skill.name}>
                             <div className='app__flex'
                                 style={{ backgroundColor: skill.bgColor }}>
+                                {/* @ts-ignore */}
                                 <img src={urlFor(skill.icon)} alt={skill.name} />
                             </div>
                             <p className="p-text">{skill.name}</p>
@@ -53,7 +55,7 @@ const Skills = () => {
                             </div>
                             <motion.div
                                 className='app__skills-exp-works'>
-                                {experience.works.map((work) => (
+                                {experience.works.map((work: string | any) => (
                                     <>
                                         <motion.div
                                             whileInView={{ opacity: [0, 1] }}
@@ -67,6 +69,7 @@ const Skills = () => {
                                         </motion.div>
                                         <ReactTooltip
                                             id={work.name}
+                                            //@ts-ignore
                                             effect="solid"
                                             arrowColor="#fff"
                                             className="skills-tooltip">

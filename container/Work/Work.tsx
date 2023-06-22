@@ -2,14 +2,16 @@
 import React, { useState, useEffect } from 'react';
 import { AiFillEye, AiFillGithub } from 'react-icons/ai';
 import { motion } from 'framer-motion';
-import { AppWrap, MotionWrap } from '../../Wrapper';
-import { urlFor, client } from '../../utils/client';
+import { AppWrap, MotionWrap } from '@Wrapper';
+import { urlFor, client } from '@utils/client';
 import "./Work.scss";
-const Work = () => {
+import { animateCardProps, filterWorkProps } from '@types';
+import Link from 'next/link';
+const Work: React.FC = () => {
     const [activeFilter, setActiveFilter] = useState("All");
-    const [animateCard, setAnimateCard] = useState({ y: 0, opacity: 1 });
+    const [animateCard, setAnimateCard] = useState<animateCardProps['y']>({ y: 0, opacity: 1 });
     const [works, setWorks] = useState([]);
-    const [filterWork, setFilterWork] = useState([]);
+    const [filterWork, setFilterWork] = useState<filterWorkProps[]>([]);
     useEffect(() => {
         const query = `*[_type == "works"]`;
         client.fetch(query)
@@ -18,21 +20,21 @@ const Work = () => {
                 setFilterWork(data);
             });
     }, []);
-    const handleWorkFilter = (item) => {
+    const handleWorkFilter = (item: string) => {
         setActiveFilter(item);
         setAnimateCard([{ y: 100, opacity: 0 }]);
 
         setTimeout(() => {
             setAnimateCard([{ y: 0, opacity: 1 }]);
             // eslint-disable-next-line
-            { item === "All" ? setFilterWork(works) : setFilterWork(works.filter((work) => work.tags.includes(item))); }
+            { item === "All" ? setFilterWork(works) : setFilterWork(works.filter((work: string | any) => work.tags.includes(item))); }
         });
     };
     return (
         <>
             <h2 className='head-text'>My Creative <span>Portfolio</span> Section </h2>
             <div className='app__work-filter'>
-                {["UI/UX", "Web App", "Mobile App", "React JS", "All"].map((item, index) => (
+                {["UI/UX", "Web App", "Mobile App", "Next JS", "All"].map((item, index) => (
                     <div
                         key={index}
                         onClick={() => handleWorkFilter(item)}
@@ -51,12 +53,13 @@ const Work = () => {
                         className='app__work-item app__flex'
                         key={index}>
                         <div className='app__work-img app__flex'>
+                            {/* @ts-ignore */}
                             <img src={urlFor(work.imgUrl)} alt={work.name} />
                             <motion.div
                                 whileHover={{ opacity: [0, 1] }}
                                 transition={{ duration: 0.25, ease: "easeInOut", staggerChildren: 0.5 }}
                                 className="app__work-hover app__flex">
-                                <a href={work.projectLink}
+                                <Link href={work.projectLink}
                                     target="_blank" rel='noreferrer'>
                                     <motion.div
                                         whileInView={{ scale: [0, 1] }}
@@ -65,8 +68,8 @@ const Work = () => {
                                         className="app__flex">
                                         <AiFillEye />
                                     </motion.div>
-                                </a>
-                                <a href={work.codeLink}
+                                </Link>
+                                <Link href={work.codeLink}
                                     target="_blank" rel='noreferrer'>
                                     <motion.div
                                         whileInView={{ scale: [0, 1] }}
@@ -75,7 +78,7 @@ const Work = () => {
                                         className="app__flex">
                                         <AiFillGithub />
                                     </motion.div>
-                                </a>
+                                </Link>
                             </motion.div>
                         </div>
                         <div className='app__work-content app__flex'>

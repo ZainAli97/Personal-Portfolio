@@ -1,6 +1,5 @@
 import { NavigationDotsProps } from '@/types';
 import Link from 'next/link';
-import React from 'react';
 
 const NavigationDots: React.FC<NavigationDotsProps> = ({ active }) => {
     return (
